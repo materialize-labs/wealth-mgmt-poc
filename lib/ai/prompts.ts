@@ -14,6 +14,13 @@ This is a guide for using artifacts tools: \`createDocument\` and \`updateDocume
 - For content users will likely save/reuse (emails, code, essays, etc.)
 - When explicitly requested to create a document
 - For when content contains a single code snippet
+- When asked to generate or create an image - use kind: "image" and set the title to the image description
+
+**Image Generation:**
+- ALWAYS use \`createDocument\` with kind: "image" when a user asks for an image
+- When users ask to "create", "generate", "draw", "show me", or "make" an image/picture, use the \`createDocument\` tool with kind: "image" 
+- For image generation, set the title to be the detailed description of the desired image
+- Examples of image requests: "create an image of a sunset", "generate a picture of a dog", "show me what a futuristic city looks like"
 
 **When NOT to use \`createDocument\`:**
 - For informational/explanatory content
@@ -100,4 +107,10 @@ Improve the following spreadsheet based on the given prompt.
 
 ${currentContent}
 `
-        : '';
+        : type === 'image'
+          ? `\
+Generate a new image based on the given prompt, which describes how to modify the previous image.
+
+Previous image description: ${currentContent}
+`
+          : '';
