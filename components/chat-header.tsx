@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useWindowSize } from 'usehooks-ts';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { ModelSelector } from '@/components/model-selector';
 import { SidebarToggle } from '@/components/sidebar-toggle';
@@ -12,7 +12,7 @@ import { PlusIcon, GlobeIcon } from './icons';
 import { useSidebar } from './ui/sidebar';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
-import { VisibilityType, VisibilitySelector } from './visibility-selector';
+import { VisibilitySelector } from './visibility-selector';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -22,6 +22,7 @@ import {
   AlertDialogFooter,
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
+import type { VisibilityType } from './visibility-selector';
 
 function PureChatHeader({
   chatId,
@@ -37,14 +38,20 @@ function PureChatHeader({
   const router = useRouter();
   const { open } = useSidebar();
   const [pluginDialogOpen, setPluginDialogOpen] = useState(false);
-
+  const [isMounted, setIsMounted] = useState(false);
   const { width: windowWidth } = useWindowSize();
+
+  // Fix hydration mismatch by waiting for client-side mount
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <header className="flex sticky top-0 bg-background py-1.5 items-center px-2 md:px-2 gap-2">
       <SidebarToggle />
 
-      {(!open || windowWidth < 768) && (
+      {/* Only render after mounting on client to prevent hydration mismatch */}
+      {isMounted && (!open || windowWidth < 768) && (
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -100,31 +107,33 @@ function PureChatHeader({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>Connected Data Sources</AlertDialogTitle>
-            <AlertDialogDescription>
-              <div className="py-4">
-                <p className="mb-4">Currently connected to:</p>
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
-                    <div className="h-3 w-3 bg-green-500 rounded-full" />
-                    <span>Outlook (Email data)</span>
+            <AlertDialogDescription asChild>
+              <div className="text-sm text-muted-foreground">
+                <div className="py-4">
+                  <div className="mb-4">Currently connected to:</div>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                      <div className="h-3 w-3 bg-green-500 rounded-full" />
+                      <span>Outlook (Email data)</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                      <div className="h-3 w-3 bg-green-500 rounded-full" />
+                      <span>Addepar (Portfolio data)</span>
+                    </div>
+                    <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                      <div className="h-3 w-3 bg-green-500 rounded-full" />
+                      <span>Salesforce (Client data)</span>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
-                    <div className="h-3 w-3 bg-green-500 rounded-full" />
-                    <span>Addepar (Portfolio data)</span>
+                  <div className="mt-6 mb-2">Additional plugins:</div>
+                  <div className="text-center p-4 border border-dashed rounded-md">
+                    <div className="text-muted-foreground mb-2">
+                      More integrations coming soon
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      Bloomberg, Factset, Morningstar, and more
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
-                    <div className="h-3 w-3 bg-green-500 rounded-full" />
-                    <span>Salesforce (Client data)</span>
-                  </div>
-                </div>
-                <p className="mt-6 mb-2">Additional plugins:</p>
-                <div className="text-center p-4 border border-dashed rounded-md">
-                  <p className="text-muted-foreground mb-2">
-                    More integrations coming soon
-                  </p>
-                  <p className="text-xs text-muted-foreground">
-                    Bloomberg, Factset, Morningstar, and more
-                  </p>
                 </div>
               </div>
             </AlertDialogDescription>

@@ -32,12 +32,24 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
       label: 'client dates in the next month?',
       action: 'Any important client dates in the next month?',
     },
+    {
+      title: 'Compare the performance',
+      label: "of Sarah Johnson and David Thompson's portfolios",
+      action:
+        "Compare the performance of Sarah Johnson and David Thompson's portfolios",
+    },
+    {
+      title: 'What recent market insights',
+      label: "might be relevant to Sarah Johnson's portfolio?",
+      action:
+        "What recent market insights might be relevant to Sarah Johnson's portfolio?",
+    },
   ];
 
   return (
     <div
       data-testid="suggested-actions"
-      className="grid sm:grid-cols-2 gap-2 w-full"
+      className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 w-full"
     >
       {suggestedActions.map((suggestedAction, index) => (
         <motion.div
@@ -46,7 +58,13 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
           exit={{ opacity: 0, y: 20 }}
           transition={{ delay: 0.05 * index }}
           key={`suggested-action-${suggestedAction.title}-${index}`}
-          className={index > 1 ? 'hidden sm:block' : 'block'}
+          className={
+            index > 3
+              ? 'hidden md:block'
+              : index > 1
+                ? 'hidden sm:block'
+                : 'block'
+          }
         >
           <Button
             variant="ghost"
