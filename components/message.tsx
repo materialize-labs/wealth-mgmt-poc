@@ -18,7 +18,46 @@ import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { MessageEditor } from './message-editor';
 import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
-import { UseChatHelpers } from '@ai-sdk/react';
+import type { UseChatHelpers } from '@ai-sdk/react';
+import { DataSourceHeader } from './data-source-header';
+
+function detectDataSourceInText(text: string): {
+  detectedSource: string | null;
+  processedText: string;
+} {
+  console.log('Checking text:', text);
+
+  // Try to match an exact pattern anywhere in the text
+  if (text.includes('[Salesforce]')) {
+    console.log('Found Salesforce marker');
+    return {
+      detectedSource: 'salesforce',
+      processedText: text.replace(/\[Salesforce\][\s\n]*/g, ''),
+    };
+  }
+
+  if (text.includes('[Addepar]')) {
+    console.log('Found Addepar marker');
+    return {
+      detectedSource: 'addepar',
+      processedText: text.replace(/\[Addepar\][\s\n]*/g, ''),
+    };
+  }
+
+  if (text.includes('[Outlook]')) {
+    console.log('Found Outlook marker');
+    return {
+      detectedSource: 'outlook',
+      processedText: text.replace(/\[Outlook\][\s\n]*/g, ''),
+    };
+  }
+
+  console.log('No source detected');
+  return {
+    detectedSource: null,
+    processedText: text,
+  };
+}
 
 const PurePreviewMessage = ({
   chatId,
@@ -96,6 +135,11 @@ const PurePreviewMessage = ({
 
               if (type === 'text') {
                 if (mode === 'view') {
+                  // Process text to detect data source mention at the beginning
+                  const { detectedSource, processedText } =
+                    detectDataSourceInText(part.text);
+                  console.log('Detected source in UI:', detectedSource);
+
                   return (
                     <div key={key} className="flex flex-row gap-2 items-start">
                       {message.role === 'user' && !isReadonly && (
@@ -123,7 +167,11 @@ const PurePreviewMessage = ({
                             message.role === 'user',
                         })}
                       >
-                        <Markdown>{part.text}</Markdown>
+                        {/* Add the data source header if one was detected */}
+                        {message.role === 'assistant' && detectedSource && (
+                          <DataSourceHeader source={detectedSource as any} />
+                        )}
+                        <Markdown>{processedText}</Markdown>
                       </div>
                     </div>
                   );

@@ -1,4 +1,4 @@
-import { ArtifactKind } from '@/components/artifact';
+import type { ArtifactKind } from '@/components/artifact';
 
 export const artifactsPrompt = `
 Artifacts is a special user interface mode that helps users with writing, editing, and other content creation tasks. When artifact is open, it is on the right side of the screen, while the conversation is on the left side. When creating or updating documents, changes are reflected in real-time on the artifacts and visible to the user.
@@ -209,12 +209,21 @@ When users ask questions about clients, portfolios, emails, or dates:
 3. If asked about data not in the mock objects, create plausible responses that align with existing information
 4. For questions about the PRD demo scenarios, use the appropriate mock data
 5. Avoid mentioning that this is simulated data unless directly asked
-6. Include small visual indicators like [Addepar], [Outlook], or [Salesforce] before relevant sections to simulate system integration
+6. When providing information from a specific system, start your response with the data source name on its own line, in the format "[Addepar]", "[Outlook]", or "[Salesforce]"
 
 Example response formats:
-- "I've found the following information in [Salesforce] about Sarah Johnson..."
-- "According to [Addepar], David Thompson's portfolio is currently valued at $5,892,400..."
-- "Your recent email exchange with [Outlook] Robert Williams discussed business succession planning..."
+- First provide a brief introduction, then for specific data include the data source
+- For portfolio information:
+  [Addepar]
+  David Thompson's portfolio is currently valued at $5,892,400...
+  
+- For client information:
+  [Salesforce]
+  Sarah Johnson's contact information and upcoming events are as follows...
+  
+- For email information:
+  [Outlook]
+  I found the following recent email exchanges with Robert Williams regarding business succession planning...
 `;
 
 export const systemPrompt = ({
