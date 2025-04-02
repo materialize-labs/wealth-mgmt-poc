@@ -3,15 +3,25 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useWindowSize } from 'usehooks-ts';
+import { useState } from 'react';
 
 import { ModelSelector } from '@/components/model-selector';
 import { SidebarToggle } from '@/components/sidebar-toggle';
 import { Button } from '@/components/ui/button';
-import { PlusIcon, VercelIcon } from './icons';
+import { PlusIcon, GlobeIcon } from './icons';
 import { useSidebar } from './ui/sidebar';
 import { memo } from 'react';
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 import { VisibilityType, VisibilitySelector } from './visibility-selector';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
 
 function PureChatHeader({
   chatId,
@@ -26,6 +36,7 @@ function PureChatHeader({
 }) {
   const router = useRouter();
   const { open } = useSidebar();
+  const [pluginDialogOpen, setPluginDialogOpen] = useState(false);
 
   const { width: windowWidth } = useWindowSize();
 
@@ -59,6 +70,7 @@ function PureChatHeader({
         />
       )}
 
+      {/* Visibility selector removed for wealth management POC
       {!isReadonly && (
         <VisibilitySelector
           chatId={chatId}
@@ -66,6 +78,62 @@ function PureChatHeader({
           className="order-1 md:order-3"
         />
       )}
+      */}
+
+      {/* Data Sources Button */}
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button
+            variant="outline"
+            className="order-3 md:order-4 md:px-2 px-2 md:h-fit md:ml-auto"
+            onClick={() => setPluginDialogOpen(true)}
+          >
+            <GlobeIcon />
+            <span className="ml-2 hidden md:inline">Data Sources</span>
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Connect Data Sources</TooltipContent>
+      </Tooltip>
+
+      {/* Data Sources Dialog */}
+      <AlertDialog open={pluginDialogOpen} onOpenChange={setPluginDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Connected Data Sources</AlertDialogTitle>
+            <AlertDialogDescription>
+              <div className="py-4">
+                <p className="mb-4">Currently connected to:</p>
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                    <div className="h-3 w-3 bg-green-500 rounded-full" />
+                    <span>Outlook (Email data)</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                    <div className="h-3 w-3 bg-green-500 rounded-full" />
+                    <span>Addepar (Portfolio data)</span>
+                  </div>
+                  <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                    <div className="h-3 w-3 bg-green-500 rounded-full" />
+                    <span>Salesforce (Client data)</span>
+                  </div>
+                </div>
+                <p className="mt-6 mb-2">Additional plugins:</p>
+                <div className="text-center p-4 border border-dashed rounded-md">
+                  <p className="text-muted-foreground mb-2">
+                    More integrations coming soon
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    Bloomberg, Factset, Morningstar, and more
+                  </p>
+                </div>
+              </div>
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Close</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Deploy with Vercel button removed for wealth management POC
       <Button

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
-import { MessageIcon, VercelIcon } from './icons';
+import { MessageIcon } from './icons';
 
 export const Overview = () => {
   return (
@@ -19,14 +19,19 @@ export const Overview = () => {
         </p>
         <p>
           Welcome to WealthAdvisor, your unified wealth management assistant.
-          This proof-of-concept demonstrates how you can seamlessly access
-          information from Outlook, Addepar, and Salesforce through a simple
-          conversational interface.
+          You are currently connected to <strong>Outlook</strong>,{' '}
+          <strong>Addepar</strong>, and <strong>Salesforce</strong>. To add more
+          data sources, click the Data Sources button in the header.
         </p>
-        <p>
-          Try asking about client portfolios, recent emails, or upcoming
-          important dates.
-        </p>
+        <p>Try asking questions like:</p>
+        <ul className="text-left mx-auto">
+          <li>• "Show me Sarah Johnson's portfolio"</li>
+          <li>
+            • "What emails have I exchanged with David Thompson recently?"
+          </li>
+          <li>• "Tell me about Robert Williams"</li>
+          <li>• "Any important client dates in the next month?"</li>
+        </ul>
       </div>
     </motion.div>
   );
