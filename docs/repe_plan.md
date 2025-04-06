@@ -159,12 +159,12 @@ This checklist outlines the necessary steps to adapt our WealthAdvisor chatbot f
   * Create tests for data source detection in both modes
   * Test conditional UI components and prompts
 
-- [ ] **Document mode-switching process**
+- [x] **Document mode-switching process**
   * Background: Users need to know how to switch between modes
   * Update README with instructions for changing the environment variable
   * Document any server restart requirements
 
-- [ ] **Update README to be app-specific**
+- [x] **Update README to be app-specific**
   * Background: The current README is based on the generic Next.js AI Chatbot template
   * Replace generic content with specific information about the WealthAdvisor/REPEAdvisor application
   * Update features, description, and screenshots to reflect the actual application
@@ -174,11 +174,6 @@ This checklist outlines the necessary steps to adapt our WealthAdvisor chatbot f
   * Background: Demos should highlight the strengths of each mode
   * Create separate demo guides for wealth management and REPE modes
   * Include suggested talking points and scenarios to showcase
-
-- [ ] **Test both modes thoroughly**
-  * Background: Ensure a seamless experience in both modes
-  * Verify all conditional elements work correctly
-  * Check for any "leakage" between modes (wealth management elements appearing in REPE mode)
 
 ## 7. Future Extensibility
 

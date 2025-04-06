@@ -1,9 +1,19 @@
-name: Playwright Tests
+/**
+ * Disabled automatic Playwright test runs on push/pull requests
+ * Tests can still be manually triggered if needed in the future
+ */
+
+name: Playwright Tests (Disabled)
 on:
-  push:
-    branches: [main, master]
-  pull_request:
-    branches: [main, master]
+  # Workflow is disabled for automatic runs
+  # Uncomment below sections to re-enable if needed in the future
+  # push:
+  #   branches: [main, master]
+  # pull_request:
+  #   branches: [main, master]
+  
+  # Only run manually via workflow_dispatch
+  workflow_dispatch:
 
 jobs:
   test:

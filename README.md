@@ -1,54 +1,87 @@
+/**
+ * Updated README to focus on the project-specific features and capabilities
+ * Highlighted dual-mode functionality (WealthAdvisor and REPEAdvisor)
+ * Added information about industry-specific data sources and features
+ * Maintained core technical information for developers
+ */
+
 <a href="https://chat.vercel.ai/">
-  <img alt="Next.js 14 and App Router-ready AI chatbot." src="app/(chat)/opengraph-image.png">
-  <h1 align="center">Next.js AI Chatbot</h1>
+  <img alt="Intelligent Industry AI Chatbot for Wealth Management and Real Estate." src="app/(chat)/opengraph-image.png">
+  <h1 align="center">WealthAdvisor & REPEAdvisor</h1>
 </a>
 
 <p align="center">
-  An Open-Source AI Chatbot Template Built With Next.js and the AI SDK by Vercel.
+  An industry-specific AI chatbot with dual modes for Wealth Management and Real Estate Private Equity.
 </p>
 
 <p align="center">
   <a href="#features"><strong>Features</strong></a> ·
-  <a href="#model-providers"><strong>Model Providers</strong></a> ·
-  <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a> ·
-  <a href="#app-modes"><strong>App Modes</strong></a>
+  <a href="#industry-modes"><strong>Industry Modes</strong></a> ·
+  <a href="#data-sources"><strong>Data Sources</strong></a> ·
+  <a href="#deployment"><strong>Deployment</strong></a> ·
+  <a href="#running-locally"><strong>Running Locally</strong></a>
 </p>
 <br/>
 
 ## Features
 
-- [Next.js](https://nextjs.org) App Router
-  - Advanced routing for seamless navigation and performance
-  - React Server Components (RSCs) and Server Actions for server-side rendering and increased performance
-- [AI SDK](https://sdk.vercel.ai/docs)
-  - Unified API for generating text, structured objects, and tool calls with LLMs
-  - Hooks for building dynamic chat and generative user interfaces
-  - Supports xAI (default), OpenAI, Fireworks, and other model providers
-- [shadcn/ui](https://ui.shadcn.com)
-  - Styling with [Tailwind CSS](https://tailwindcss.com)
-  - Component primitives from [Radix UI](https://radix-ui.com) for accessibility and flexibility
-- Data Persistence
-  - [Vercel Postgres powered by Neon](https://vercel.com/storage/postgres) for saving chat history and user data
-  - [Vercel Blob](https://vercel.com/storage/blob) for efficient file storage
-- [NextAuth.js](https://github.com/nextauthjs/next-auth)
-  - Simple and secure authentication
+- **Dual Industry Modes**
+  - Wealth Management (WealthAdvisor)
+  - Real Estate Private Equity (REPEAdvisor)
+- **Integrated Data Sources**
+  - Mode-specific data source connectors
+  - Visual indicators for data source attribution
+  - Configurable data source dialog
+- **Enhanced Chat Interface**
+  - Industry-specific suggested prompts
+  - Contextual AI responses based on mode
+  - Data source attribution bubbles
+- **Technical Foundation**
+  - Built on Next.js App Router
+  - AI SDK for seamless model integration
+  - Responsive UI components with shadcn/ui
 
-## Model Providers
+## Industry Modes
 
-This template ships with [xAI](https://x.ai) `grok-2-1212` as the default chat model. However, with the [AI SDK](https://sdk.vercel.ai/docs), you can switch LLM providers to [OpenAI](https://openai.com), [Anthropic](https://anthropic.com), [Cohere](https://cohere.com/), and [many more](https://sdk.vercel.ai/providers/ai-sdk-providers) with just a few lines of code.
+This application supports two distinct industry verticals through a simple configuration variable:
 
-## Deploy Your Own
+### WealthAdvisor (Default)
+- **Focus**: Wealth management and financial advisory
+- **Target Users**: Financial advisors managing client portfolios
+- **Core Features**: Client portfolio analysis, market insights, client communication
+- **Data Sources**: Salesforce (client data), Addepar (portfolio data), Outlook (email communication)
 
-You can deploy your own version of the Next.js AI Chatbot to Vercel with one click:
+### REPEAdvisor
+- **Focus**: Real Estate Private Equity investment and management
+- **Target Users**: REPE analysts, property managers, investment teams
+- **Core Features**: Property performance analysis, lease tracking, market research
+- **Data Sources**: Yardi (property management), Argus (financial modeling), Gmail, Excel, Google Sheets
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot&env=AUTH_SECRET&envDescription=Generate%20a%20random%20secret%20to%20use%20for%20authentication&envLink=https%3A%2F%2Fgenerate-secret.vercel.app%2F32&project-name=my-awesome-chatbot&repository-name=my-awesome-chatbot&demo-title=AI%20Chatbot&demo-description=An%20Open-Source%20AI%20Chatbot%20Template%20Built%20With%20Next.js%20and%20the%20AI%20SDK%20by%20Vercel&demo-url=https%3A%2F%2Fchat.vercel.ai&products=%5B%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22ai%22%2C%22productSlug%22%3A%22grok%22%2C%22integrationSlug%22%3A%22xai%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22ai%22%2C%22productSlug%22%3A%22api-key%22%2C%22integrationSlug%22%3A%22groq%22%7D%2C%7B%22type%22%3A%22integration%22%2C%22protocol%22%3A%22storage%22%2C%22productSlug%22%3A%22neon%22%2C%22integrationSlug%22%3A%22neon%22%7D%2C%7B%22type%22%3A%22blob%22%7D%5D)
+## Data Sources
 
-## Running locally
+The chatbot connects to industry-specific data sources that appear as visual indicators in the AI's responses:
 
-You will need to use the environment variables [defined in `.env.example`](.env.example) to run Next.js AI Chatbot. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
+### Wealth Management
+- **Salesforce**: Client relationship data, account information, contact details
+- **Addepar**: Portfolio performance, asset allocation, investment data
+- **Outlook**: Client communications, meeting notes, follow-ups
 
-> Note: You should not commit your `.env` file or it will expose secrets that will allow others to control access to your various AI and authentication provider accounts.
+### Real Estate Private Equity
+- **Yardi**: Property management data, tenant information, lease details
+- **Argus**: Financial models, valuation data, cash flow projections
+- **Gmail**: Communications with tenants, investors, and partners
+- **Excel**: Financial spreadsheets, investment models
+- **Google Sheets**: Collaborative data tracking, shared property metrics
+
+## Deployment
+
+You can deploy your own version of this chatbot to Vercel with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fvercel%2Fai-chatbot&env=AUTH_SECRET,NEXT_PUBLIC_APP_MODE&envDescription=Required%20environment%20variables%20for%20the%20application&envLink=https%3A%2F%2Fgenerate-secret.vercel.app%2F32&project-name=industry-ai-chatbot&repository-name=industry-ai-chatbot&demo-title=Industry%20AI%20Chatbot&demo-description=AI%20Chatbot%20with%20modes%20for%20Wealth%20Management%20and%20Real%20Estate%20Private%20Equity&demo-url=https%3A%2F%2Fchat.vercel.ai)
+
+## Running Locally
+
+You will need to use the environment variables defined in `.env.example` to run the application locally. It's recommended you use [Vercel Environment Variables](https://vercel.com/docs/projects/environment-variables) for this, but a `.env` file is all that is necessary.
 
 1. Install Vercel CLI: `npm i -g vercel`
 2. Link local instance with Vercel and GitHub accounts (creates `.vercel` directory): `vercel link`
@@ -59,19 +92,20 @@ pnpm install
 pnpm dev
 ```
 
-Your app template should now be running on [localhost:3000](http://localhost:3000/).
+Your app should now be running on [localhost:3000](http://localhost:3000/).
 
-## App Modes
+## Switching App Modes
 
-This chatbot can be configured to target different industry verticals through the `NEXT_PUBLIC_APP_MODE` environment variable. Currently supported modes:
-
-- `wealth-management` (default): Tailored for wealth management advisors with connections to Salesforce, Addepar, and Outlook
-- `repe`: Real Estate Private Equity version with connections to Yardi, Argus, Gmail, Excel, and Google Sheets
-
-To switch between modes:
+To switch between industry modes:
 
 1. Open your `.env.local` file
-2. Set `NEXT_PUBLIC_APP_MODE` to your desired mode (e.g., `NEXT_PUBLIC_APP_MODE=repe`)
+2. Set `NEXT_PUBLIC_APP_MODE` to either:
+   - `wealth-management` (default)
+   - `repe` (Real Estate Private Equity)
 3. Restart the development server with `pnpm dev`
 
 The app will automatically adjust its data sources, system prompts, and UI elements to match the selected industry focus.
+
+## Model Providers
+
+This application uses the Vercel AI SDK and supports multiple model providers. The default is xAI's Grok, but you can easily switch to other providers like OpenAI, Anthropic, or Cohere by updating the model configuration.
