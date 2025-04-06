@@ -20,6 +20,7 @@ import { DocumentPreview } from './document-preview';
 import { MessageReasoning } from './message-reasoning';
 import type { UseChatHelpers } from '@ai-sdk/react';
 import { DataSourceHeader } from './data-source-header';
+import { isREPE, isWealthManagement } from '@/config/app-config';
 
 function detectDataSourceInText(text: string): {
   detectedSource: string | null;
@@ -27,29 +28,75 @@ function detectDataSourceInText(text: string): {
 } {
   console.log('Checking text:', text);
 
-  // Try to match an exact pattern anywhere in the text
-  if (text.includes('[Salesforce]')) {
-    console.log('Found Salesforce marker');
-    return {
-      detectedSource: 'salesforce',
-      processedText: text.replace(/\[Salesforce\][\s\n]*/g, ''),
-    };
+  // Wealth Management data sources
+  if (isWealthManagement) {
+    // Try to match an exact pattern anywhere in the text
+    if (text.includes('[Salesforce]')) {
+      console.log('Found Salesforce marker');
+      return {
+        detectedSource: 'salesforce',
+        processedText: text.replace(/\[Salesforce\][\s\n]*/g, ''),
+      };
+    }
+
+    if (text.includes('[Addepar]')) {
+      console.log('Found Addepar marker');
+      return {
+        detectedSource: 'addepar',
+        processedText: text.replace(/\[Addepar\][\s\n]*/g, ''),
+      };
+    }
+
+    if (text.includes('[Outlook]')) {
+      console.log('Found Outlook marker');
+      return {
+        detectedSource: 'outlook',
+        processedText: text.replace(/\[Outlook\][\s\n]*/g, ''),
+      };
+    }
   }
 
-  if (text.includes('[Addepar]')) {
-    console.log('Found Addepar marker');
-    return {
-      detectedSource: 'addepar',
-      processedText: text.replace(/\[Addepar\][\s\n]*/g, ''),
-    };
-  }
+  // REPE data sources
+  if (isREPE) {
+    if (text.includes('[Yardi]')) {
+      console.log('Found Yardi marker');
+      return {
+        detectedSource: 'yardi',
+        processedText: text.replace(/\[Yardi\][\s\n]*/g, ''),
+      };
+    }
 
-  if (text.includes('[Outlook]')) {
-    console.log('Found Outlook marker');
-    return {
-      detectedSource: 'outlook',
-      processedText: text.replace(/\[Outlook\][\s\n]*/g, ''),
-    };
+    if (text.includes('[Argus]')) {
+      console.log('Found Argus marker');
+      return {
+        detectedSource: 'argus',
+        processedText: text.replace(/\[Argus\][\s\n]*/g, ''),
+      };
+    }
+
+    if (text.includes('[Gmail]')) {
+      console.log('Found Gmail marker');
+      return {
+        detectedSource: 'gmail',
+        processedText: text.replace(/\[Gmail\][\s\n]*/g, ''),
+      };
+    }
+
+    if (text.includes('[Excel]')) {
+      console.log('Found Excel marker');
+      return {
+        detectedSource: 'excel',
+        processedText: text.replace(/\[Excel\][\s\n]*/g, ''),
+      };
+    }
+
+    if (text.includes('[Google Sheets]')) {
+      console.log('Found Google Sheets marker');
+      return {
+        detectedSource: 'googlesheets',
+        processedText: text.replace(/\[Google Sheets\][\s\n]*/g, ''),
+      };
+    }
   }
 
   console.log('No source detected');

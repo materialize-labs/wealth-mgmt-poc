@@ -23,6 +23,7 @@ import {
   AlertDialogCancel,
 } from '@/components/ui/alert-dialog';
 import type { VisibilityType } from './visibility-selector';
+import { isWealthManagement, isREPE } from '@/config/app-config';
 
 function PureChatHeader({
   chatId,
@@ -112,26 +113,60 @@ function PureChatHeader({
                 <div className="py-4">
                   <div className="mb-4">Currently connected to:</div>
                   <div className="flex flex-col gap-2">
-                    <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
-                      <div className="h-3 w-3 bg-green-500 rounded-full" />
-                      <span>Outlook (Email data)</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
-                      <div className="h-3 w-3 bg-green-500 rounded-full" />
-                      <span>Addepar (Portfolio data)</span>
-                    </div>
-                    <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
-                      <div className="h-3 w-3 bg-green-500 rounded-full" />
-                      <span>Salesforce (Client data)</span>
-                    </div>
+                    {isWealthManagement && (
+                      <>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Outlook (Email data)</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Addepar (Portfolio data)</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Salesforce (Client data)</span>
+                        </div>
+                      </>
+                    )}
+
+                    {isREPE && (
+                      <>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Yardi (Property management data)</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Argus (Financial modeling data)</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Gmail (Email communications)</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Excel (Financial spreadsheets)</span>
+                        </div>
+                        <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-md">
+                          <div className="h-3 w-3 bg-green-500 rounded-full" />
+                          <span>Google Sheets (Collaborative data)</span>
+                        </div>
+                      </>
+                    )}
                   </div>
-                  <div className="mt-6 mb-2">Additional plugins:</div>
+                  <div className="mt-6 mb-2">
+                    Additional {isWealthManagement ? 'plugins' : 'integrations'}
+                    :
+                  </div>
                   <div className="text-center p-4 border border-dashed rounded-md">
                     <div className="text-muted-foreground mb-2">
                       More integrations coming soon
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      Bloomberg, Factset, Morningstar, and more
+                      {isWealthManagement
+                        ? 'Bloomberg, Factset, Morningstar, and more'
+                        : 'CoStar, Real Capital Analytics, Buildout, and more'}
                     </div>
                   </div>
                 </div>

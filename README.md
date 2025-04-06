@@ -11,7 +11,8 @@
   <a href="#features"><strong>Features</strong></a> ·
   <a href="#model-providers"><strong>Model Providers</strong></a> ·
   <a href="#deploy-your-own"><strong>Deploy Your Own</strong></a> ·
-  <a href="#running-locally"><strong>Running locally</strong></a>
+  <a href="#running-locally"><strong>Running locally</strong></a> ·
+  <a href="#app-modes"><strong>App Modes</strong></a>
 </p>
 <br/>
 
@@ -59,3 +60,18 @@ pnpm dev
 ```
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
+
+## App Modes
+
+This chatbot can be configured to target different industry verticals through the `NEXT_PUBLIC_APP_MODE` environment variable. Currently supported modes:
+
+- `wealth-management` (default): Tailored for wealth management advisors with connections to Salesforce, Addepar, and Outlook
+- `repe`: Real Estate Private Equity version with connections to Yardi, Argus, Gmail, Excel, and Google Sheets
+
+To switch between modes:
+
+1. Open your `.env.local` file
+2. Set `NEXT_PUBLIC_APP_MODE` to your desired mode (e.g., `NEXT_PUBLIC_APP_MODE=repe`)
+3. Restart the development server with `pnpm dev`
+
+The app will automatically adjust its data sources, system prompts, and UI elements to match the selected industry focus.

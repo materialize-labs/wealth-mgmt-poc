@@ -1,9 +1,20 @@
+/**
+ * SuggestedActions component that shows clickable prompt suggestions
+ * when starting a new chat
+ *
+ * Changes:
+ * - Modified to show different suggestions based on app mode
+ * - Added REPE-specific suggestions for the REPE mode
+ * - Kept original suggestions for wealth management mode
+ */
+
 'use client';
 
 import { motion } from 'framer-motion';
 import { Button } from './ui/button';
 import { memo } from 'react';
 import { UseChatHelpers } from '@ai-sdk/react';
+import { isWealthManagement } from '@/config/app-config';
 
 interface SuggestedActionsProps {
   chatId: string;
@@ -11,7 +22,8 @@ interface SuggestedActionsProps {
 }
 
 function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
-  const suggestedActions = [
+  // Wealth Management suggested actions
+  const wealthManagementSuggestions = [
     {
       title: 'Show me',
       label: "Sarah Johnson's portfolio",
@@ -45,6 +57,45 @@ function PureSuggestedActions({ chatId, append }: SuggestedActionsProps) {
         "What recent market insights might be relevant to Sarah Johnson's portfolio?",
     },
   ];
+
+  // REPE (Real Estate Private Equity) suggested actions
+  const repeSuggestions = [
+    {
+      title: 'Show me',
+      label: "Riverfront Tower's performance metrics for Q2",
+      action: "Show me Riverfront Tower's performance metrics for Q2",
+    },
+    {
+      title: 'What leases',
+      label: 'are expiring in the next 6 months?',
+      action: 'What leases are expiring in the next 6 months?',
+    },
+    {
+      title: 'Tell me about',
+      label: 'Westfield Plaza',
+      action: 'Tell me about Westfield Plaza',
+    },
+    {
+      title: 'How is',
+      label: 'the Chicago office market performing?',
+      action: 'How is the Chicago office market performing?',
+    },
+    {
+      title: 'What are the 5-year projections',
+      label: 'for Riverfront Tower?',
+      action: 'What are the 5-year projections for Riverfront Tower?',
+    },
+    {
+      title: 'Who are our top tenants',
+      label: 'by square footage?',
+      action: 'Who are our top tenants by square footage?',
+    },
+  ];
+
+  // Select the appropriate suggestions based on app mode
+  const suggestedActions = isWealthManagement
+    ? wealthManagementSuggestions
+    : repeSuggestions;
 
   return (
     <div

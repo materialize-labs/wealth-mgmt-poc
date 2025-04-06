@@ -1,15 +1,26 @@
+/**
+ * Root layout component for the application
+ *
+ * Changes:
+ * - Updated metadata to be conditional based on app mode (wealth management or REPE)
+ * - Title changes to WealthAdvisor or REPEAdvisor based on app mode
+ * - Description updates to reflect the appropriate data sources for each mode
+ */
+
 import { Toaster } from 'sonner';
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
+import { isWealthManagement } from '@/config/app-config';
 
 import './globals.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://chat.vercel.ai'),
-  title: 'WealthAdvisor',
-  description:
-    'Wealth management chatbot for accessing data from Salesforce, Addepar, and Outlook.',
+  title: isWealthManagement ? 'WealthAdvisor' : 'REPEAdvisor',
+  description: isWealthManagement
+    ? 'Wealth management chatbot for accessing data from Salesforce, Addepar, and Outlook.'
+    : 'Real Estate Private Equity chatbot for accessing data from Yardi, Argus, Gmail, Excel, and Google Sheets.',
 };
 
 export const viewport = {
