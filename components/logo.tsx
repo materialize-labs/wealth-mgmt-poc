@@ -27,17 +27,7 @@ export function Logo({ size = 'md', className, title }: LogoProps) {
     lg: 'w-20 h-20',
   };
 
-  // Only show the IEQ logo in wealth management mode
-  if (isWealthManagement) {
-    return (
-      <IEQLogo
-        className={cn(dimensions[size], className)}
-        title={title || 'IEQ Capital'}
-      />
-    );
-  }
-
-  // Return null for REPE mode - no logo needed
+  // Always return null to hide the logo
   return null;
 }
 
